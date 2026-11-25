@@ -11,7 +11,7 @@ Most of my code lives in private repositories. This page explains what each proj
 ```mermaid
 flowchart LR
     subgraph Trading["📈 Trading"]
-        OA["Option Ark<br/>screener & platform"]
+        OA["Option Ark<br/>screener & education"]
         BOTS["Trading bots"]
         DASH["Portfolio dashboard"]
     end
@@ -41,8 +41,52 @@ flowchart LR
 
 ## 📈 Trading automation
 
-### Option Ark: options screener and trading platform
-A Python platform behind [optionark.com](https://optionark.com). It pulls market and options-chain data, scores contracts against a set of strategy rules, and surfaces the best candidates as watchlists and alerts. It is the research layer that feeds the trading bots.
+### Option Ark: options income screener and education platform
+[optionark.com](https://optionark.com) scans the market every hour during trading hours for high-quality **covered call, cash-secured put, put credit spread and call credit spread** setups. It ranks them and explains them in plain language, so traders find good income setups before they go looking.
+
+**How a setup gets picked**
+- **Delta-targeted entries** in the 0.15 to 0.35 delta band
+- **15 to 30 DTE** window, falling back to the nearest expiration within 10 to 45 days for monthly-only chains
+- **Liquidity floor** with a minimum open interest
+- **Minimum return** of 1.5% return on capital for puts and covered calls, and 2% for credit spreads
+- **Ranked by return on capital** within each strategy, not by raw premium
+- **Earnings-aware:** setups within about 10 days of a report are held back automatically, and any setup that expires after an earnings date gets a ⚠ flag
+- **Risk tiers:** Safe, Balanced and Growth, based on analyst conviction, balance-sheet strength and real earnings
+
+**Options-specific data on every setup**
+
+| Metric | What it tells you |
+| --- | --- |
+| **IV Rank** | Where implied volatility sits against its own past year |
+| **POP** | Estimated probability of profit |
+| **Expected move** | The 1-standard-deviation price range by expiration |
+| **Win-rate history** | Historic win/loss per ticker and strategy, plus a track record by strategy and delta |
+| **ROC & annualized return** | Premium collected against capital at risk |
+| **Delta, DTE, OI, RSI** | Odds, time, liquidity and momentum at a glance |
+
+**Platform features**
+- **Strategy Screener:** live filters by strategy, ticker, risk tier, delta, DTE, minimum ROC and RSI range, with sorting, side-by-side compare and CSV export
+- **Most Active options** ranked by contract volume
+- **Earnings calendar** with report dates, before-open/after-close timing and EPS estimates (data from Finnhub), plus a count of affected setups
+- **Watchlists, saved screeners and daily email digests** that match a user's saved filters
+- **Free and Plus tiers**, with a Pro tier coming soon: position tracker with profit-target and assignment-risk alerts, trade journal, income dashboard and deep-dive play pages
+
+**Education**
+A built-in learning section for newer traders. It starts with options basics (puts, calls, premium, strike, assignment). Then it gives each of the four strategies its own lesson with a worked example, a profit/loss diagram, max profit, max loss, break-even, capital needed, when it works best and what can go wrong. It ends with a side-by-side strategy comparison and a glossary of key terms like delta, IV Rank, ROC and POP.
+
+```mermaid
+flowchart LR
+    CH[("Option chains &<br/>market data")] --> SCAN["Hourly scan<br/>56+ tickers"]
+    ER[("Earnings dates<br/>Finnhub")] --> SCAN
+    SCAN --> FLT{"Filters<br/>delta · DTE · OI · min ROC<br/>earnings window"}
+    FLT --> MET["Enrich<br/>IV Rank · POP · expected move<br/>win-rate history · RSI"]
+    MET --> RANK["Rank by ROC<br/>per strategy & risk tier"]
+    RANK --> TOP["Top Plays"]
+    RANK --> SCR["Screener Plus"]
+    RANK --> MAIL["Watchlists &<br/>daily email digest"]
+    RANK --> BOTS["Trading bots"]
+    EDU["Education<br/>lessons · P/L diagrams · glossary"] -.-> TOP
+```
 
 ### Trading bots
 Python bots that turn screener signals into real orders. Each bot runs a rule-based strategy, sizes positions, places and manages orders (including multi-leg options orders), and logs every decision. They connect directly to brokerage APIs at **Tradier** and **Charles Schwab**.
