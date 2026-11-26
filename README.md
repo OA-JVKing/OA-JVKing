@@ -185,8 +185,9 @@ flowchart LR
 
 ## 📫 Get in touch
 
+- 📅 **Book a call:** [calendly.com/optionark](https://calendly.com/optionark)
 - Email: [consulting@optionark.com](mailto:consulting@optionark.com)
 - Consulting: [consulting.optionark.com](https://consulting.optionark.com)
 - Trading tools: [optionark.com](https://optionark.com)
 
-Happy to walk through any of these projects on a call.
+Happy to walk through any of these projects on a call. [Grab a time here](https://calendly.com/optionark).
