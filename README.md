@@ -169,6 +169,12 @@ flowchart LR
 
 ---
 
+## 🎓 Currently learning
+
+**No Code and Agentic AI**, MIT Professional Education (Nov 2026 to Mar 2027, in progress). Covers LLMs and prompt engineering, RAG pipelines, evaluating generative AI, and single- and multi-agent systems, with hands-on n8n projects.
+
+---
+
 ## 🧰 Tools and tech
 
 | Area | What I use |
