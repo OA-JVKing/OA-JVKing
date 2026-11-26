@@ -185,6 +185,7 @@ flowchart LR
 
 ## 📫 Get in touch
 
+- Email: [consulting@optionark.com](mailto:consulting@optionark.com)
 - Consulting: [consulting.optionark.com](https://consulting.optionark.com)
 - Trading tools: [optionark.com](https://optionark.com)
 
