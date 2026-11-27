@@ -137,7 +137,7 @@ flowchart LR
 ```
 
 ### Trading bots
-Python bots that turn screener signals into real orders. Each bot runs a rule-based strategy, sizes positions, places and manages orders (including multi-leg options orders), and logs every decision. They connect directly to brokerage APIs at **Tradier** and **Charles Schwab**.
+Python bots that turn screener signals into real orders. Each bot runs a rule-based strategy, sizes positions, places and manages orders (including multi-leg options orders), and logs every decision. They connect directly to brokerage APIs at **Tradier** and **Charles Schwab**. Every execution and every error is pushed in real time to **Slack** and **Telegram**, so I know what the bots are doing without watching a screen.
 
 ```mermaid
 flowchart LR
@@ -151,6 +151,10 @@ flowchart LR
     TRAD --> LOG[("Trade log")]
     SCHW --> LOG
     LOG -- "fills & P/L" --> STRAT
+    EXEC -- "executions" --> NOTIFY["Notifier"]
+    EXEC -- "errors" --> NOTIFY
+    NOTIFY --> SLACK["Slack"]
+    NOTIFY --> TG["Telegram"]
 ```
 
 ### Multi-broker portfolio dashboard
@@ -184,7 +188,7 @@ flowchart LR
 | Automation | n8n, Make, AI agents |
 | AI | Claude, RAG pipelines, Qdrant vector database |
 | Data | Airtable |
-| Messaging | SMS, WhatsApp |
+| Messaging & alerts | SMS, WhatsApp, Slack, Telegram |
 | Hosting & DevOps | Render, Vercel, GitHub |
 
 ---
